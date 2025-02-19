@@ -21,6 +21,8 @@ class NearestNeighborIndexTest(unittest.TestCase):
             (-1000, 20),
             (3.14159, 42),
             (42, 3.14159),
+            (200,199),
+            (122,0)
         ]
 
         uut = NearestNeighborIndex(test_points)

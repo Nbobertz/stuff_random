@@ -3,7 +3,7 @@ import math
 
 class NearestNeighborIndex:
     """
-    TODO give me a decent comment
+    TODO give me a decent comment (hello, this is Nick phoning in, go to my function to see inline comments)
 
     NearestNeighborIndex is intended to index a set of provided points to provide fast nearest
     neighbor lookup. For now, it is simply a stub that performs an inefficient traversal of all
@@ -44,14 +44,39 @@ class NearestNeighborIndex:
         points, None is returned.
         """
 
-        min_dist = None
+        # #below is my code
+
+        #changes min to float(inf) this prevents a check during first loop since it's impossible for the distance between points to be larger than inf. Speed up stuff.
+        min_dist = float('inf')
         min_point = None
 
+
+        #this process uses the manhatten distance. It takes the absolute value of the distnaces between two points and updates if it is closer.
+
+        #think of manhatten as a graph
+        #graph =
+        #[0,0,1,0]
+        #[0,0,1,0]
+        #[0,1,1,0]
+        #[1,1,0,0]
+
+        #there is no reason for us to check tangental when we can just check to the left,right,up,down. This saves us from having to calculate a circle around the point to see if we have another point in it. We just see if we can get to the nearest point via 2,3,4,5,6,7 direction changes.
+
+        #simply put, by only checking directions = [1,0],[-1,0],[0,1],[0,-1] and not 8 way diretcions we can simply skip half the checks that an circular check would do. This proccess works well on a graph.
+
+        #for more information about the pro's vs con's on Euclidean distance vs Manhattan distance see https://www.datacamp.com/tutorial/manhattan-distance
+
+        #now if you really want to speed things up you should use GeoHashing on your points ahead of time. Store this data in Reddis or Elasticache (AWS) with a microservice that stores the lookup and you can skip a ton of this computational time since we are just refrencing a glorified hashmap at the end of the day.
+
+        #-Nick B (runs at 1.38-1.52)
+
+        #this is the simple python one liner way of doing the manhatten distance. Saves time.
         for point in self.points:
-            deltax = point[0] - query_point[0]
-            deltay = point[1] - query_point[1]
-            dist = math.sqrt(deltax * deltax + deltay * deltay)
-            if min_dist is None or dist < min_dist:
+
+            dist = abs(point[0] - query_point[0]) + abs(point[1] - query_point[1])
+
+            # Update the closest point if this one is closer
+            if dist < min_dist:
                 min_dist = dist
                 min_point = point
 
