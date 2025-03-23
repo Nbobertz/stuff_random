@@ -12,7 +12,7 @@ from pynn import nearest_neighbor_index as ny
 your_tup_data = [
     (1,1),
     (5,5),
-    (20,20)
+    (20,20),
     #etc. Put your data in (x,y) format above
 ]
 
@@ -37,3 +37,12 @@ test.build_grid_and_BFS(targets=tups_to_query)
 
 # Meaningful examples may include reading a file, finding a few nearby points and writing them
 # out to the console.
+
+
+# grid = [
+#
+#     a = (0,1)
+#     for r,c in a:
+#         q = deque()
+#         directions = [0,1],[0,-1],[1,0],[-1,0] #left, right, up, down
+# ]
